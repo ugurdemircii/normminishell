@@ -14,9 +14,9 @@ char *find_executable(char *cmd, t_env *env)
 	i = -1;
 	while (dirs[++i])
 	{
-		full_path = ft_calloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2, sizeof(char));
-		if (!full_path)
-			break;
+		// full_path = ft_calloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2, sizeof(char));
+		// if (!full_path)
+		// 	break;
 		full_path = ft_strjoin(dirs[i], cmd, '/');
 		if (access(full_path, X_OK) == 0)
 		{
@@ -72,17 +72,30 @@ int create_pipe(t_cmds *cmd, int pipefd[2])
 	}
 	return (0);
 }
-static void join_key_value(t_env *env,char **envp,int *count)
-{
-	char *line;
-	char *str;
+// static void join_key_value(t_env *env,char **envp,int *count)
+// {
+// 	char *line;
+// 	char *str;
 
-	str = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
-	if (!line)
-		return ;
-	line = ft_strjoin(env->key, env->value, '=');
-	free(str);
-	envp[(*count)++] = line;
+// 	str = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
+// 	if (!str)
+// 		return ;
+// 	line = ft_strjoin(env->key, env->value, '=');
+// 	free(str);
+// 	envp[(*count)++] = line;
+// }
+
+static void join_key_value(t_env *env, char **envp, int *count)
+{
+    char *line;
+
+    if (env->value)
+        line = ft_strjoin(env->key, env->value, '=');
+    else
+        line = ft_strdup(env->key);
+    if (!line)
+        return;
+    envp[(*count)++] = line;
 }
 
 char **env_to_envp(t_env *env) 
