@@ -33,6 +33,13 @@ void	ft_putstr_fd(char *s, int fd)
 		s++;
 	}
 }
+void ft_putendl_fd(char *s,int fd)
+{
+	if (!s)
+		return ;
+	ft_putstr_fd(s,fd);
+	write(fd,"\n",1);
+}
 
 char	*ft_strtrim(char *s1, char *set)
 {

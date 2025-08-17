@@ -23,17 +23,23 @@ void handle_command_access(t_cmds *cmd,t_env *env)
 {
 	if (is_directory(cmd->command[0]))
 	{
-		fprintf(stderr, "%s: Is a directory\n", cmd->command[0]);
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(cmd->command[0], 2);
+		ft_putendl_fd(": Is a directory", 2);
 		free_and_exit(cmd,env,126);
 	}
 	if (access(cmd->command[0], F_OK) != 0)
 	{
-		fprintf(stderr, "%s: No such file or directory\n", cmd->command[0]);
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(cmd->command[0], 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		free_and_exit(cmd,env,127);
 	}
 	if (access(cmd->command[0], X_OK) != 0)
 	{
-		fprintf(stderr, "%s: Permission denied\n", cmd->command[0]);
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(cmd->command[0], 2);
+		ft_putendl_fd(": Permission denied", 2);
 		free_and_exit(cmd,env,126);
 	}
 }

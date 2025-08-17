@@ -17,7 +17,7 @@ char *find_executable(char *cmd, t_env *env)
 		full_path = ft_calloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2, sizeof(char));
 		if (!full_path)
 			break;
-		sprintf(full_path, "%s/%s", dirs[i], cmd);
+		full_path = ft_strjoin(dirs[i], cmd, '/');
 		if (access(full_path, X_OK) == 0)
 		{
 			free_double_ptr(dirs);
@@ -75,11 +75,13 @@ int create_pipe(t_cmds *cmd, int pipefd[2])
 static void join_key_value(t_env *env,char **envp,int *count)
 {
 	char *line;
+	char *str;
 
-	line = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
+	str = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
 	if (!line)
 		return ;
-	sprintf(line, "%s=%s", env->key, env->value);
+	line = ft_strjoin(env->key, env->value, '=');
+	free(str);
 	envp[(*count)++] = line;
 }
 

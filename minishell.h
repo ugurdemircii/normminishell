@@ -60,7 +60,7 @@ typedef struct s_cmds
 
 
 //utils2
-char	*ft_strjoin_env(char *s1, char *s2, char sep);
+char	*ft_strjoin(char *s1, char *s2, char sep);
 int	ft_isalnum(int c);
 int	ft_strcmp(const char *s1, const char *s2);
 int	ft_isalpha(int c);
@@ -80,6 +80,7 @@ char	*ft_strtrim(char *s1, char *set);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *s, int c);
 int count_len_double_ptr(char **args);
+void ft_putendl_fd(char *s,int fd);
 //utils5
 char	**ft_split(char *s, char c);
 //quote_utils

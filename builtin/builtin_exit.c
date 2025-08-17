@@ -50,19 +50,16 @@ int builtin_exit(char **args,t_cmds *cmd,t_env *env,int flag)
 		write (1,"exit\n",5);
 	if (!args[1])
 		free_and_exit(cmd,env,0);
-	if (args[1] && args[1][0] == '\0')
+	if ((args[1] && args[1][0] == '\0') || !is_numeric(args[1]))
 	{
-		fprintf(stderr, "minishell: exit: %s: numeric argument required\n", args[1]);
-		free_and_exit(cmd,env,2);
-	}
-	if (!is_numeric(args[1]))
-	{
-		fprintf(stderr, "minishell: exit: %s: numeric argument required\n", args[1]);
+        ft_putstr_fd("minishell: exit: ",2);
+        ft_putstr_fd(args[1],2);
+        ft_putendl_fd(": numeric argument required",2);
 		free_and_exit(cmd,env,2);
 	}
 	if (args[2])
 	{
-		fprintf(stderr, "minishell: exit: too many arguments\n");
+		ft_putendl_fd("minishell: exit: too many arguments",2);
 		free_and_exit(cmd,env,1);
 	}
 	exit = (unsigned char)ft_atoll(args[1]); 

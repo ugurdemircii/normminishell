@@ -31,7 +31,7 @@ static void handle_heredoc_input(int pipe_fd, char *limiter, int expand_flag, t_
             free(line);
             line = expanded;
         }
-        write(pipe_fd, line, strlen(line));
+        write(pipe_fd, line, ft_strlen(line));
         write(pipe_fd, "\n", 1);
         free(line);
     }
@@ -58,7 +58,8 @@ static int open_heredoc_pipe(char *limiter, int expand_flag, t_env *env, t_cmds 
         return -1;
     }
     pid = fork();
-    if (pid == -1) {
+    if (pid == -1)
+    {
         perror("fork");
         close(pipe_fd[0]);
         close(pipe_fd[1]);

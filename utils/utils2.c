@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char	*ft_strjoin_env(char *s1, char *s2, char sep)
+char	*ft_strjoin(char *s1, char *s2, char sep)
 {
 	size_t	len1;
 	size_t	len2;

@@ -8,14 +8,16 @@ static int export_error(t_env **env, char **args,int *i)
 	key = extract_varname(args[*i]);
 	if (!key || !is_valid_varname(key))
 	{
-		fprintf(stderr, "export: `%s': not a valid identifier\n", args[*i]);
+        ft_putstr_fd("export: `",2);
+        ft_putendl_fd(args[*i], 2);
+        ft_putendl_fd("': not a valid identifier", 2);
 		free(key);
 		return (1);
 	}
 	value = extract_varvalue(args[*i]);
 	if (set_env_var(env, key, value) == -1)
 	{
-		fprintf(stderr, "export: memory allocation error\n");
+		ft_putendl_fd("export: memory allocation error", 2);
 		free(key);
 		free(value);
 		return (1);
@@ -75,7 +77,9 @@ int	builtin_export(t_env **env, char **args)
 	{
 		if (!args[i][0])
 		{
-			fprintf(stderr, "export: `%s': not a valid identifier\n", args[i]);
+            ft_putstr_fd("export: `",2);
+            ft_putstr_fd(args[i],2);
+            ft_putendl_fd("': not a valid identifier", 2);
             i++;
 			exit = 1;
 			continue ;
