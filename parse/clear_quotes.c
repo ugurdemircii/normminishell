@@ -7,7 +7,7 @@ static char *ignore_quote(char *str)
     int j; 
     int i;
 
-    new_str = malloc(ft_strlen(str) + 1);
+    new_str = ft_calloc(ft_strlen(str) + 1, sizeof(char));
     if (!new_str) 
         return NULL;
     i = 0;

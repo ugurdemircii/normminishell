@@ -20,14 +20,14 @@ static char *get_path(char *arg, t_env *env)
 {
     if (!arg || ft_strcmp(arg, "--") == 0)
     {
-        char *home = get_env_value(env, "HOME");
+        char *home = find_in_env_list(env, "HOME");
         if (!home)
             fprintf(stderr, "cd: HOME not set\n");
         return home;
     }
     if (ft_strcmp(arg, "-") == 0)
     {
-        char *oldpwd = get_env_value(env, "OLDPWD");
+        char *oldpwd = find_in_env_list(env, "OLDPWD");
         if (!oldpwd)
             fprintf(stderr, "cd: OLDPWD not set\n");
         else

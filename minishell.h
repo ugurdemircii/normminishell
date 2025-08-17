@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -59,7 +60,7 @@ typedef struct s_cmds
 
 
 //utils2
-char	*ft_strjoin_env(const char *s1, const char *s2, char sep);
+char	*ft_strjoin_env(char *s1, char *s2, char sep);
 int	ft_isalnum(int c);
 int	ft_strcmp(const char *s1, const char *s2);
 int	ft_isalpha(int c);
@@ -75,11 +76,16 @@ char	*ft_itoa(int n);
 void	*ft_calloc(size_t count, size_t size);
 int is_last_index_pipe(char *input);
 //utils4
-char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim(char *s1, char *set);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *s, int c);
-void free_double_ptr(char **args);
 int count_len_double_ptr(char **args);
+//utils5
+char	**ft_split(char *s, char c);
+//quote_utils
+char *no_quote(char *input, int *i);
+char *quote(char *input, int *i, char quote_char);
+void go_next_quote(char *input, int *i);
 //list_utils
 void add_env_node(t_env **head, t_env *new_node);
 t_env *create_env_node(char *key, char *value);
@@ -98,12 +104,15 @@ void	setup_exec_signals(void);
 void	setup_signals(void);
 //syntax_check
 int check_syntax(char *input);
+void find_pipe(char *input, int *i);
 //parse
 int parse_steps(char *input,t_cmds **cmd, t_env *env,int exit_status);
 //parse_utils
 char *re_write_redirect(char *input);
 char    **pipe_split(char *input);
 t_cmds *minishell_split(char *input);
+//heredocutils
+int handle_parent_process(pid_t pid, int pipe_fd[2]);
 //token
 void token_arg(t_cmds *cmd);
 int	redirect_token_check(t_cmds *cmd, char *input);
@@ -111,7 +120,7 @@ void redirect_and_command(t_cmds *cmd);
 void clean_command(t_cmds *cmd);
 //dolarexpansion
 void expand_cmd(t_cmds *cmd, t_env *env_list);
-char *expand_arg(const char *arg, t_env *env_list, int num,t_cmds *cmd);
+char *expand_arg(char *arg, t_env *env_list, int num,t_cmds *cmd);
 //expansionutils
 void	handle_exit_code(t_expand *expand_info, int exit_status);
 void handle_quote(t_expand *expand_info, char c);
@@ -130,12 +139,14 @@ void run_path(t_cmds *cmd,char **envp,t_env *env);
 char **env_to_envp(t_env *env);
 int create_pipe(t_cmds *cmd, int pipefd[2]);
 void setup_pipes(t_cmds *cmd, int prev_fd, int pipefd[2],t_env *env);
+char *find_executable(char *cmd, t_env *env);
 //executils2
 void handle_command_access(t_cmds *cmd,t_env *env);
 void close_unused_fds(int *prev_fd, t_cmds *cmd, int pipefd[2]);
 //execbuiltin
 int is_builtin(char *cmd);
 int handle_single_builtin(t_cmds *cmd, t_env **env, char **envp);
+int run_builtin(t_cmds *cmd, t_env **env,int flag);
 //redirect
 int setup_redirects(t_redirect *redir);
 void    restore_stdio(int stdin_backup, int stdout_backup);
@@ -154,5 +165,8 @@ char	*extract_varname(char *arg);
 int	is_valid_varname(const char *name);
 char	*extract_varvalue(char *arg);
 //builtinutils2
-int set_env_var(t_env **env, const char *key, const char *value);
+int	env_len(t_env *env);
+int set_env_var(t_env **env, char *key, char *value);
+
+
 #endif

@@ -9,19 +9,6 @@ int count_len_double_ptr(char **args)
 		i++;
 	return (i);
 }
-void free_double_ptr(char **args)
-{
-	int i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (args[i])
-			free(args[i]);
-		i++;
-	}
-	free(args);	
-}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -47,7 +34,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	char	*trimmed;
 	size_t	start;

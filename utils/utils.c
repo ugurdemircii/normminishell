@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_strlen(char *s)
 {
@@ -18,7 +18,7 @@ char	*ft_strdup(char *s1)
 	int		i;
 
 	i = 0;
-	dest = malloc(ft_strlen(s1) + 1);
+	dest = ft_calloc(ft_strlen(s1) + 1,sizeof(char));
 	if (dest == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -42,7 +42,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if ((strlen - start) < len)
 		len = strlen - start;
-	str = (char *)malloc(sizeof(char) * (len + 1));
+	str = ft_calloc(len + 1,sizeof(char));
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s + start, len + 1);

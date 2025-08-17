@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 
 void	add_redirect_node(t_redirect **list, t_redirect *new_redirect)
@@ -20,7 +20,7 @@ t_redirect	*create_new_redirect(int type, char *file)
 {
 	t_redirect	*new_redirect;
 
-	new_redirect = malloc(sizeof(t_redirect));
+	new_redirect = ft_calloc(1, sizeof(t_redirect));
 	if (!new_redirect)
 		return (NULL);
 	new_redirect->type = type;
@@ -69,7 +69,7 @@ t_env *create_env_node(char *key, char *value)
 {
 	t_env *node;
 
-	node = malloc(sizeof(t_env));
+	node = ft_calloc(1, sizeof(t_env));
 	if (!node)
 		return (NULL);
 	node->key = ft_strdup(key);

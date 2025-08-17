@@ -40,7 +40,7 @@ char	*extract_varname(char *arg)
 	i = 0;
 	while (arg[i] && arg[i] != '=')
 		i++;
-	name = malloc(sizeof(char) * (i + 1));
+	name = ft_calloc((i + 1),sizeof(char));
 	if (!name)
 		return (NULL);
 	strncpy(name, arg, i);
@@ -53,7 +53,7 @@ t_env	**env_to_array(t_env *env)
 	t_env	**array;
 	int		i;
 
-	array = malloc(sizeof(t_env *) * (env_len(env) + 1));
+	array = ft_calloc((env_len(env) + 1), sizeof(t_env *));
 	if (!array)
 		return (NULL);
 	i = 0;

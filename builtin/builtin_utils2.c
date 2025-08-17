@@ -1,6 +1,20 @@
 #include "../minishell.h"
 
-static int update_var(t_env *env, const char *key, const char *value)
+
+int	env_len(t_env *env)
+{
+	int	count;
+
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
+static int update_var(t_env *env, char *key, char *value)
 {
     t_env *curr = env;
     
@@ -19,10 +33,10 @@ static int update_var(t_env *env, const char *key, const char *value)
     }
     return 0;
 }
-static int create_and_add_node(t_env **env, const char *key, const char *value)
+static int create_and_add_node(t_env **env, char *key, char *value)
 {
     t_env *new_node;
-	new_node = malloc(sizeof(t_env));
+	new_node = ft_calloc(1, sizeof(t_env));
     if (!new_node)
         return -1;
     new_node->key = ft_strdup(key);
@@ -35,7 +49,7 @@ static int create_and_add_node(t_env **env, const char *key, const char *value)
     return 0;
 }
 
-int set_env_var(t_env **env, const char *key, const char *value)
+int set_env_var(t_env **env, char *key, char *value)
 {
     if (!env || !key)
         return -1;

@@ -1,5 +1,18 @@
 #include "../minishell.h"
 
+
+void find_pipe(char *input, int *i)
+{
+    while (input[(*i)])
+    {
+        if (input[*i] == 34 || input[*i] == 39)
+            go_next_quote(input,i);
+        if (input[*i] == '|')
+            break;
+        (*i)++;
+    }
+}
+
 static int pipe_control(char *input)
 {
 	int i;

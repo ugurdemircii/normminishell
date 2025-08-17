@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+volatile sig_atomic_t g_exit_status_shell = 0;
+
 static void	sigint_handler(int sig)
 {
 	(void)sig;

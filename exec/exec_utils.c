@@ -10,11 +10,11 @@ char *find_executable(char *cmd, t_env *env)
 	path = find_in_env_list(env, "PATH");
 	if (!path || ft_strchr(cmd, '/'))
 		return ft_strdup(cmd);
-	dirs = ft_split(path, ':'); 
+	dirs = ft_split(path, ':');
 	i = -1;
 	while (dirs[++i])
 	{
-		full_path = malloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2);
+		full_path = ft_calloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2, sizeof(char));
 		if (!full_path)
 			break;
 		sprintf(full_path, "%s/%s", dirs[i], cmd);
@@ -76,7 +76,7 @@ static void join_key_value(t_env *env,char **envp,int *count)
 {
 	char *line;
 
-	line = malloc(ft_strlen(env->key) + ft_strlen(env->value) + 2);
+	line = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
 	if (!line)
 		return ;
 	sprintf(line, "%s=%s", env->key, env->value);
@@ -97,7 +97,7 @@ char **env_to_envp(t_env *env)
 		count++;
 		tmp = tmp->next;
 	}
-	envp = malloc(sizeof(char *) * (count + 1));
+	envp = ft_calloc(count + 1, sizeof(char *));
 	if (!envp)
 		return NULL;
 	count = 0;

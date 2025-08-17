@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 static size_t	count_len(int n)
 {

@@ -57,7 +57,7 @@ void token_arg(t_cmds *cmd)
 	while (cmd)
 	{
 		i = -1;
-		cmd->token_type = malloc(sizeof(int) * count_len_double_ptr(cmd->command));//
+		cmd->token_type = ft_calloc(count_len_double_ptr(cmd->command), sizeof(int));
 		if (!cmd->token_type)
 			return ;
 		while (cmd->command[++i])
@@ -94,7 +94,7 @@ void clean_command(t_cmds *cmd)
 
 	while (cmd)
 	{
-		new_cmd = malloc(sizeof(char *) * (count_len_double_ptr(cmd->command) + 1));
+		new_cmd = ft_calloc(count_len_double_ptr(cmd->command) + 1, sizeof(char *));
 		if (!new_cmd)
 			return ;
 		i = 0;

@@ -9,15 +9,6 @@ int is_builtin(char *cmd)
 		|| !strcmp(cmd, "env") || !strcmp(cmd, "exit"));
 }
 
-int handle_single_builtin(t_cmds *cmd, t_env **env, char **envp)
-{
-	int builtin_return;
-
-	if (setup_redirects(cmd->redirect_list) < 0)
-		return (1);
-	builtin_return = run_builtin(cmd,env,1);
-	return (builtin_return);
-}
 
 int run_builtin(t_cmds *cmd, t_env **env,int flag) 
 {
@@ -36,4 +27,14 @@ int run_builtin(t_cmds *cmd, t_env **env,int flag)
 	else if (!ft_strcmp(cmd->command[0], "exit"))
 		return builtin_exit(cmd->command,cmd,*env,flag);
 	return (1);
+}
+
+int handle_single_builtin(t_cmds *cmd, t_env **env, char **envp)
+{
+	int builtin_return;
+
+	if (setup_redirects(cmd->redirect_list) < 0)
+		return (1);
+	builtin_return = run_builtin(cmd,env,1);
+	return (builtin_return);
 }

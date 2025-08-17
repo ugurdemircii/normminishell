@@ -8,10 +8,10 @@ t_cmds *minishell_split(char *input)
     int i;
     int j;
 
-    node = malloc(sizeof(t_cmds));
+    node = ft_calloc(1, sizeof(t_cmds));
     if (!node)
         return NULL;
-    node->command = malloc(sizeof(char *) * (ft_strlen(input) + 1));
+    node->command = ft_calloc(ft_strlen(input) + 1, sizeof(char *));
     if (!node->command)
         return NULL;
     j = 0;
@@ -37,7 +37,7 @@ char    **pipe_split(char *input)
     int j;
     int start;
 
-    pipe_args = malloc(sizeof(char *) * 100000);
+    pipe_args = ft_calloc(100000, sizeof(char *));
     if (!pipe_args)
         return NULL;
     i = 0;
@@ -99,7 +99,7 @@ char *re_write_redirect(char *input)
     i = 0;
     j = 0;
     quote_flag = 0;
-    output = malloc(strlen(input) * 4 + 1);
+    output = ft_calloc(strlen(input) * 4 + 1, sizeof(char));
     if (output == NULL)
         return NULL;
     while (input[i])

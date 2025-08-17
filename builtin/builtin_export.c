@@ -23,7 +23,6 @@ static int export_error(t_env **env, char **args,int *i)
 	free(key);
 	free(value);
 	return (0);
-
 }
 static void	print_exported_vars(t_env *env)
 {
@@ -46,7 +45,15 @@ static void	print_exported_vars(t_env *env)
 	}
 	free(array);
 }
-
+static int export_only(char **args,t_env *env)
+{
+    if (!args || !args[1])
+	{
+		print_exported_vars(env);
+		return (1);
+	}
+    return (0);
+}
 
 int	builtin_export(t_env **env, char **args)
 {
@@ -57,16 +64,19 @@ int	builtin_export(t_env **env, char **args)
 
 	exit = 0;
 	i = 1;
-	if (!args || !args[1])
-	{
-		print_exported_vars(*env);
-		return (0);
-	}
+    if (export_only(args, *env) == 1)
+        return (0);
+	// if (!args || !args[1])
+	// {
+	// 	print_exported_vars(*env);
+	// 	return (0);
+	// }
 	while (args[i])
 	{
-		if (!args[i++][0])
+		if (!args[i][0])
 		{
 			fprintf(stderr, "export: `%s': not a valid identifier\n", args[i]);
+            i++;
 			exit = 1;
 			continue ;
 		}

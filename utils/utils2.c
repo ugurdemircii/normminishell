@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../minishell.h"
 
-char	*ft_strjoin_env(const char *s1, const char *s2, char sep)
+char	*ft_strjoin_env(char *s1, char *s2, char sep)
 {
 	size_t	len1;
 	size_t	len2;
@@ -12,7 +12,7 @@ char	*ft_strjoin_env(const char *s1, const char *s2, char sep)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	result = (char *)malloc(len1 + len2 + 2);
+	result = ft_calloc(len1 + len2 + 2,sizeof(char));
 	if (!result)
 		return (NULL);
 	i = 0;
