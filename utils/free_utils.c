@@ -1,12 +1,19 @@
 #include "../minishell.h"
 
+void free_and_exit(t_cmds *cmd, t_env *env, int exit_code)
+{
+    free_double_ptr(cmd->envp);
+    free_cmds_list(cmd->head);
+    free_env_list(env);
+    exit(exit_code);
+}
 
 void free_double_ptr(char **args)
 {
 	int i;
 
 	i = 0;
-	while (args[i])
+	while (args && args[i])
 	{
 		if (args[i])
 			free(args[i]);

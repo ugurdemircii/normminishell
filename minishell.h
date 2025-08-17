@@ -11,6 +11,7 @@
 #include <readline/readline.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 #ifndef PATH_MAX
 # define PATH_MAX 4096
@@ -90,6 +91,7 @@ void free_env_list(t_env *env);
 void free_redirect_list(t_redirect *redirect);
 void free_cmds_list(t_cmds *cmd);
 void free_double_ptr(char **args);
+void free_and_exit(t_cmds *cmd, t_env *env, int exit_code);
 //signal
 void	ignore_signals(void);
 void	setup_exec_signals(void);
@@ -121,13 +123,36 @@ void clear_quotes_of_cmd(t_cmds *cmd);
 int setup_heredocs(t_cmds *cmds, t_env *env);
 //exec
 void execute_command(t_cmds *cmd, t_env *env);
+//exec2
+void wait_for_last_child(pid_t last_pid, t_cmds *cmd);
+void run_path(t_cmds *cmd,char **envp,t_env *env);
 //executils
 char **env_to_envp(t_env *env);
+int create_pipe(t_cmds *cmd, int pipefd[2]);
+void setup_pipes(t_cmds *cmd, int prev_fd, int pipefd[2],t_env *env);
+//executils2
+void handle_command_access(t_cmds *cmd,t_env *env);
+void close_unused_fds(int *prev_fd, t_cmds *cmd, int pipefd[2]);
 //execbuiltin
 int is_builtin(char *cmd);
 int handle_single_builtin(t_cmds *cmd, t_env **env, char **envp);
 //redirect
 int setup_redirects(t_redirect *redir);
+void    restore_stdio(int stdin_backup, int stdout_backup);
 //builtin
 int	builtin_echo(char **args, int exit_after);
+int builtin_cd(char **args, t_env *env);
+int builtin_pwd(void);
+int	builtin_export(t_env **env, char **args);
+int	builtin_unset(t_env **env, char **args);
+int builtin_env(t_env *env,char **args);
+int builtin_exit(char **args,t_cmds *cmd,t_env *env,int flag);
+//builtinutils
+t_env	**env_to_array(t_env *env);
+void	sort_env_array(t_env **array);
+char	*extract_varname(char *arg);
+int	is_valid_varname(const char *name);
+char	*extract_varvalue(char *arg);
+//builtinutils2
+int set_env_var(t_env **env, const char *key, const char *value);
 #endif

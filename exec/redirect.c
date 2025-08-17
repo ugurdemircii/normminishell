@@ -1,6 +1,12 @@
 #include "../minishell.h"
 
-
+void    restore_stdio(int stdin_backup, int stdout_backup)
+{
+    dup2(stdin_backup, STDIN_FILENO);
+    dup2(stdout_backup, STDOUT_FILENO);
+    close(stdin_backup);
+    close(stdout_backup);
+}
 static int redirect_input(t_redirect *redir) 
 {
 	int fd = open(redir->file, O_RDONLY);
