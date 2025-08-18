@@ -11,9 +11,9 @@ static int redirect_input(t_redirect *redir)
 {
 	int fd = open(redir->file, O_RDONLY);
 	if (fd < 0)
-		return (perror("open input"), -1);
+		return (perror("fd error"), -1);
 	if (dup2(fd, STDIN_FILENO) < 0)
-		return (perror("dup2 input"), close(fd), -1);
+		return (perror("dup2 error"), close(fd), -1);
 	return (close(fd), 0);
 }
 
@@ -22,9 +22,9 @@ static int redirect_output(t_redirect *redir, int append)
 	int flags = O_WRONLY | O_CREAT | (append ? O_APPEND : O_TRUNC);
 	int fd = open(redir->file, flags, 0644);
 	if (fd < 0)
-		return (perror("open output"), -1);
+		return (perror("fd error"), -1);
 	if (dup2(fd, STDOUT_FILENO) < 0)
-		return (perror("dup2 output"), close(fd), -1);
+		return (perror("dup2 error"), close(fd), -1);
 	return (close(fd), 0);
 }
 

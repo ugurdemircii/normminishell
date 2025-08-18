@@ -73,12 +73,12 @@ int check_syntax(char *input)
 {
 	if (unclosed_quotes(input))
 	{
-		printf("unclosed quote\n");
+		ft_printf("unclosed quote\n");
 		return (0);
 	}
 	if (!consecutive_pipe(input) || !pipe_control(input))
 	{
-		printf("unexpected token |\n");
+		ft_printf("unexpected token |\n");
 		return (0);
 	}
 	return (1);

@@ -68,11 +68,6 @@ int	builtin_export(t_env **env, char **args)
 	i = 1;
     if (export_only(args, *env) == 1)
         return (0);
-	// if (!args || !args[1])
-	// {
-	// 	print_exported_vars(*env);
-	// 	return (0);
-	// }
 	while (args[i])
 	{
 		if (!args[i][0])

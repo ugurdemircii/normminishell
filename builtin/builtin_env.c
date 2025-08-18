@@ -14,8 +14,8 @@ int builtin_env(t_env *env,char **args)
 {
 	if (args[1])
 	{
-		printf("'%s': No such file or directory\n",args[1]);
-		return 127;
+		ft_printf("'%s': No such file or directory\n",args[1]);
+		return (127);
 	}
 	print_env(env);
 	return 0;

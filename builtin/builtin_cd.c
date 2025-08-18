@@ -5,7 +5,7 @@ static int get_cwd(char **args, char *cwd)
 {
     if (args[1] && args[2])
     {
-        ft_putendl_fd("minishell: cd: too many arguments", 2);
+        ft_printf("minishell: cd: too many arguments\n");
 
         return 1;
     }
@@ -23,17 +23,16 @@ static char *get_path(char *arg, t_env *env)
     {
         char *home = find_in_env_list(env, "HOME");
         if (!home)
-            ft_putstr_fd("minishell: cd: HOME not set",2);
+            ft_printf("minishell: cd: HOME not set\n");
         return home;
     }
     if (ft_strcmp(arg, "-") == 0)
     {
         char *oldpwd = find_in_env_list(env, "OLDPWD");
         if (!oldpwd)
-            ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+            ft_printf("minishell: cd: OLDPWD not set\n");
         else
         {
-            printf("%s\n", oldpwd);
             ft_putstr_fd(oldpwd,1);
             ft_putstr_fd("\n",1);
         }
@@ -46,7 +45,7 @@ static int path_change_update(char *path, char *old_pwd, t_env **env)
 {
     if (chdir(path) != 0)
     {
-        ft_putstr_fd("cd: ", 2);
+        ft_printf("minishell: cd: ");
         perror(path);
         return 1;
     }  

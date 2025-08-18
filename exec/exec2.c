@@ -15,7 +15,7 @@ void wait_for_last_child(pid_t last_pid, t_cmds *cmd)
 				if (sig == SIGQUIT)
 					write(2, "Quit (core dumped)\n", 20);
 				if (sig == SIGINT)
-					write(1, "\n", 1);
+					write(2, "\n", 1);
 				cmd->exit_status = 128 + sig;
 			}
 			else if (WIFEXITED(status))

@@ -20,7 +20,7 @@ static void run_command(t_cmds *cmd, t_env *env)
 	full_path = find_executable(cmd->command[0], env);
     if (!full_path)
     {
-        fprintf(stderr, "%s: command not found\n", cmd->command[0]);
+        ft_printf("%s: command not found\n", cmd->command[0]);
         free_and_exit(cmd, env, 127);
     }
     execve(full_path, cmd->command, cmd->envp);

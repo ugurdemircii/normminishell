@@ -22,14 +22,12 @@ static void handle_heredoc_input(int pipe_fd, char *limiter, int expand_flag, t_
             break;
         }
         if (ft_strcmp(line, limiter) == 0) 
-        {
-            free(line);
             break;
-        }
         if (expand_flag) 
         {
             expanded = expand_arg(line, cmd->head_env, 0, cmd);
-            free(line);
+            if (!expanded)
+                return ;
             line = expanded;
         }
         write(pipe_fd, line, ft_strlen(line));

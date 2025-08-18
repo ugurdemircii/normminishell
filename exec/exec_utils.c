@@ -14,10 +14,9 @@ char *find_executable(char *cmd, t_env *env)
 	i = -1;
 	while (dirs[++i])
 	{
-		// full_path = ft_calloc(ft_strlen(dirs[i]) + ft_strlen(cmd) + 2, sizeof(char));
-		// if (!full_path)
-		// 	break;
 		full_path = ft_strjoin(dirs[i], cmd, '/');
+		if (!full_path)
+			return NULL;
 		if (access(full_path, X_OK) == 0)
 		{
 			free_double_ptr(dirs);
