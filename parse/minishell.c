@@ -48,7 +48,18 @@ static void	handle_exit(t_cmds *cmd, t_env *env, int exit_status)
 static char	*set_input_and_history(char *input, int *exit_status)
 {
 	char	*trimmed;
+	int i;
+	int len;
 
+	i = 0;
+	len = ft_strlen(input);
+	while (ft_isspace(input[i]))
+		i++;
+	if (i == len)
+	{
+		input[0] = '\0';
+		return (input);
+	}		
 	if (g_exit_status_shell == 130)
 	{
 		g_exit_status_shell = 0;
@@ -66,7 +77,13 @@ static int before_exec(char *input,t_cmds **cmd,t_env *env, int *exit_status)
 {
 	int exit;
 
-	if (!check_syntax(input) || parse_steps(input, cmd, env, *exit_status))
+	if (!check_syntax(input))
+	{
+		free(input);
+		*exit_status = 2;
+		return (1);
+	}
+	if (parse_steps(input, cmd, env, *exit_status))
 	{
 		free(input);
 		*exit_status = 2;
@@ -99,9 +116,9 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("\033[1;32mminishell\033[0m~$");
 		if (!input)
 			handle_exit(cmd, env, exit_status);
+		input = set_input_and_history(input, &exit_status);
 		if (input[0] == '\0')
 			continue;
-		input = set_input_and_history(input, &exit_status);
 		if (before_exec(input,&cmd,env,&exit_status))
 			continue;
 		execute_command(cmd, env);

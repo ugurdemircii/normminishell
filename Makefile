@@ -1,7 +1,7 @@
 NAME = minishell
 
-CC = gcc
-CFLAGS = -g 
+CC = gcc 
+CFLAGS = -g
 
 
 LDFLAGS = -lreadline
@@ -23,6 +23,7 @@ SRCS = 	builtin/builtin_cd.c \
         parse/clear_quotes.c \
         parse/dolar_expansion.c \
         parse/expansion_utils.c \
+        parse/expansion_utils_2.c \
         parse/heredoc.c \
         parse/minishell.c \
         parse/parse_utils.c \
@@ -38,7 +39,9 @@ SRCS = 	builtin/builtin_cd.c \
         utils/utils2.c \
         utils/utils3.c \
         utils/utils4.c \
-		utils/utils5.c \
+        utils/utils5.c \
+		utils/ft_split.c \
+        utils/ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
 

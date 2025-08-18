@@ -82,7 +82,11 @@ char	*ft_strchr(const char *s, int c);
 int count_len_double_ptr(char **args);
 void ft_putendl_fd(char *s,int fd);
 //utils5
+void *ft_memcpy(void *dest, const void *src, size_t n);
+//ft_split
 char	**ft_split(char *s, char c);
+//ft_printf
+int	ft_printf(const char *format, ...);
 //quote_utils
 char *no_quote(char *input, int *i);
 char *quote(char *input, int *i, char quote_char);
@@ -114,6 +118,7 @@ char    **pipe_split(char *input);
 t_cmds *minishell_split(char *input);
 //heredocutils
 int handle_parent_process(pid_t pid, int pipe_fd[2]);
+void free_for_heredoc(t_cmds *cmd);
 //token
 void token_arg(t_cmds *cmd);
 int	redirect_token_check(t_cmds *cmd, char *input);
@@ -127,6 +132,9 @@ void	handle_exit_code(t_expand *expand_info, int exit_status);
 void handle_quote(t_expand *expand_info, char c);
 char *find_in_env_list(t_env *env_list, char *var_name);
 bool is_valid_var_char(char c);
+//expansion utils2.c
+void get_var_name(t_expand *expand_info, char *arg,char **var_name);
+void put_var_value(t_expand *expand_info,char *var_value, char *arg);
 //clearquote
 void clear_quotes_of_cmd(t_cmds *cmd);
 //heredoc

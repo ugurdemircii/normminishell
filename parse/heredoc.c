@@ -3,7 +3,8 @@
 static void heredoc_sigint_handler(int signo)
 {
     (void)signo;
-    write(STDOUT_FILENO, "\n", 1);
+    write(2, "\n", 1);
+    free_for_heredoc(NULL);
     exit(130);
 }
 
@@ -81,6 +82,7 @@ int setup_heredocs(t_cmds *cmds, t_env *env)
         current->head = cmds;
         current->head_env = env;
         redir = current->redirect_list;
+        free_for_heredoc(current);
         while (redir) 
         {
             if (redir->type == 4) 

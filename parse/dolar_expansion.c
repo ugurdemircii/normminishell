@@ -2,27 +2,24 @@
 
 
 
-static void expand_var(t_expand *expand_info, const char *arg, t_env *env_list,t_cmds *cmd) 
+static void expand_var(t_expand *expand_info, char *arg, t_env *env_list,t_cmds *cmd) 
 {
     expand_info->i++;
-    int k;
 	char *var_value;
+    char *var_name;
 
-    k = 0;
     if (arg[expand_info->i] == '?') 
 	{
         handle_exit_code(expand_info,cmd->exit_status);
-        return;
+        return ;
     }
-    char var_name[256] = {0};
-    while (is_valid_var_char(arg[expand_info->i]))
-        var_name[k++] = arg[expand_info->i++];
+    get_var_name(expand_info, arg, &var_name);
+    if (!var_name)
+        return ;
     var_value = find_in_env_list(env_list, var_name);
     if (var_value) 
-    {
-        ft_strcpy(&expand_info->result[expand_info->j], var_value);
-        expand_info->j += ft_strlen(var_value);
-    }
+        put_var_value(expand_info,var_value,arg);
+    free(var_name);
 }
 
 char *expand_arg(char *arg, t_env *env_list, int num,t_cmds *cmd) 

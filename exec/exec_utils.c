@@ -72,18 +72,6 @@ int create_pipe(t_cmds *cmd, int pipefd[2])
 	}
 	return (0);
 }
-// static void join_key_value(t_env *env,char **envp,int *count)
-// {
-// 	char *line;
-// 	char *str;
-
-// 	str = ft_calloc(ft_strlen(env->key) + ft_strlen(env->value) + 2, sizeof(char));
-// 	if (!str)
-// 		return ;
-// 	line = ft_strjoin(env->key, env->value, '=');
-// 	free(str);
-// 	envp[(*count)++] = line;
-// }
 
 static void join_key_value(t_env *env, char **envp, int *count)
 {
