@@ -114,8 +114,8 @@ void find_pipe(char *input, int *i);
 int parse_steps(char *input,t_cmds **cmd, t_env *env,int exit_status);
 //parse_utils
 char *re_write_redirect(char *input);
-char    **pipe_split(char *input);
-t_cmds *minishell_split(char *input);
+int  pipe_count(char *input);
+int count_arg(char *input);
 //heredocutils
 int handle_parent_process(pid_t pid, int pipe_fd[2]);
 void free_for_heredoc(t_cmds *cmd);
