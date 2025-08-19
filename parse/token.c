@@ -9,7 +9,7 @@ static int	check_redirect_syntax(t_cmds *cmd, char *input)
 	{
 		if (cmd->token_type[i] >= 1 && cmd->token_type[i] <= 4)
 		{
-			if (cmd->command[i + 1] == NULL && (is_last_index_pipe(input) || cmd->next != NULL))
+			if (cmd->command[i + 1] == NULL && (last_pipe(input) || cmd->next != NULL))
 			{
 				ft_printf("syntax error near unexpected token `|'\n");
 				return (1);
@@ -20,8 +20,10 @@ static int	check_redirect_syntax(t_cmds *cmd, char *input)
 				return (1);
 			}
 			if (cmd->token_type[i + 1] >= 1 && cmd->token_type[i + 1] <= 4)
-				return (ft_printf("syntax error near unexpected token `%s'\n",
-						cmd->command[i + 1]), 1);
+			{
+				ft_printf("syntax error near unexpected token `%s'\n",cmd->command[i + 1]);
+				return (1);
+			}
 		}
 	}
 	return (0);

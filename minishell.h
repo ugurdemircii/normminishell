@@ -75,7 +75,7 @@ char	*ft_strcpy(char *dst, const char *src);
 //utils3
 char	*ft_itoa(int n);
 void	*ft_calloc(size_t count, size_t size);
-int is_last_index_pipe(char *input);
+int last_pipe(char *input);
 //utils4
 char	*ft_strtrim(char *s1, char *set);
 void	ft_putstr_fd(char *s, int fd);

@@ -88,17 +88,9 @@ static void join_key_value(t_env *env, char **envp, int *count)
 char **env_to_envp(t_env *env) 
 {
 	int count;
-	t_env *tmp;
 	char **envp;
-	char *line;
 
-	tmp = env;
-	count = 0;
-	while (tmp) 
-	{
-		count++;
-		tmp = tmp->next;
-	}
+	count = env_len(env);
 	envp = ft_calloc(count + 1, sizeof(char *));
 	if (!envp)
 		return NULL;

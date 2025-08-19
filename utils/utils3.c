@@ -24,7 +24,7 @@ static size_t	count_len(int n)
 	}
 	return (i);
 }
-int is_last_index_pipe(char *input)
+int last_pipe(char *input)
 {
 	int len;
 

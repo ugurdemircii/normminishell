@@ -33,10 +33,6 @@ static t_cmds *minishell_split(char *input)
     {
         while(isspace(input[i]) && input[i])
             i++;
-        // if ((input[i] != 34 && input [i] != 39) && input[i] != '\0')
-        //     node->command[j++] = no_quote(input,&i);
-        // if ((input[i] == '"' || input [i] == '\'') && input[i] != '\0')
-        //     node->command[j++] = quote(input,&i,input[i]);
 		if (input[i])
 			 node->command[j++] = extract_arg(input,&i);
     }
