@@ -11,21 +11,55 @@ static int redirect_input(t_redirect *redir)
 {
 	int fd = open(redir->file, O_RDONLY);
 	if (fd < 0)
-		return (perror("fd error"), -1);
+	{
+		perror("fd error");
+		return (-1);
+	}
 	if (dup2(fd, STDIN_FILENO) < 0)
-		return (perror("dup2 error"), close(fd), -1);
-	return (close(fd), 0);
+	{
+		perror("dup2 error");
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	return (0);
 }
 
-static int redirect_output(t_redirect *redir, int append) 
+// static int redirect_output(t_redirect *redir, int append) 
+// {
+// 	int flags = O_WRONLY | O_CREAT | (append ? O_APPEND : O_TRUNC);
+// 	int fd = open(redir->file, flags, 0644);
+// 	if (fd < 0)
+// 		return (perror("fd error"), -1);
+// 	if (dup2(fd, STDOUT_FILENO) < 0)
+// 		return (perror("dup2 error"), close(fd), -1);
+// 	return (close(fd), 0);
+// }
+
+static int redirect_output(t_redirect *redir, int append)
 {
-	int flags = O_WRONLY | O_CREAT | (append ? O_APPEND : O_TRUNC);
-	int fd = open(redir->file, flags, 0644);
+	int flags = O_WRONLY | O_CREAT;
+	int fd;
+
+	if (append)
+		flags |= O_APPEND;
+	else
+		flags |= O_TRUNC;
+
+	fd = open(redir->file, flags, 0644);
 	if (fd < 0)
-		return (perror("fd error"), -1);
+	{
+		perror("fd error");
+		return -1;
+	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
-		return (perror("dup2 error"), close(fd), -1);
-	return (close(fd), 0);
+	{
+		perror("dup2 error");
+		close(fd);
+		return -1;
+	}
+	close(fd);
+	return 0;
 }
 
 static int for_heredoc_type(t_redirect *redir)

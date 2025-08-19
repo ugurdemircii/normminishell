@@ -27,8 +27,7 @@ char *expand_arg(char *arg, t_env *env_list, int num,t_cmds *cmd)
     int len;
     t_expand expand_info;
 
-	len = ft_strlen(arg);
-    expand_info.result = ft_calloc(len * 100 + 1, sizeof(char));
+    expand_info.result = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
     expand_info.i = 0;
     expand_info.j = 0;
     expand_info.in_single = false;
@@ -56,7 +55,7 @@ static char **expand_command(t_cmds *cmd, t_env *env_list)
     int i = 0;
     int j = 0;
 
-    new_command = ft_calloc(100000, sizeof(char *));
+    new_command = ft_calloc(count_len_double_ptr(cmd->command) + 1, sizeof(char *));
     if (!new_command)
         return NULL;
     while (cmd->command[i])

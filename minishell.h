@@ -13,6 +13,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <limits.h>
 
 #ifndef PATH_MAX
 # define PATH_MAX 4096

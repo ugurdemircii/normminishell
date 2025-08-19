@@ -37,7 +37,7 @@ int	builtin_unset(t_env **env, char **args)
 	while (args[i])
 	{
 		if (!is_valid_varname(args[i]))
-			return (127);
+			return (0);
 		else
 			unset_env_var(env, args[i]);
 		i++;

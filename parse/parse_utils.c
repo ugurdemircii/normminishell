@@ -89,7 +89,7 @@ char *re_write_redirect(char *input)
     i = 0;
     j = 0;
     quote_flag = 0;
-    output = ft_calloc(strlen(input) * 4 + 1, sizeof(char));
+    output = ft_calloc(strlen(input) * 3 + 1, sizeof(char));
     if (output == NULL)
         return NULL;
     while (input[i])
