@@ -6,7 +6,7 @@
 /*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:28:02 by udemirci          #+#    #+#             */
-/*   Updated: 2025/08/20 02:07:30 by udemirci         ###   ########.fr       */
+/*   Updated: 2025/08/20 05:47:51 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ char							*expand_arg(char *arg, t_env *env_list, int num,
 									t_cmds *cmd);
 // expansionutils
 void							handle_exit_code(t_expand *expand_info,
-									int exit_status);
+									int exit_status, char *arg);
 void							handle_quote(t_expand *expand_info, char c);
 char							*find_in_env_list(t_env *env_list,
 									char *var_name);

@@ -6,7 +6,7 @@
 /*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 00:31:56 by eakkoc            #+#    #+#             */
-/*   Updated: 2025/08/20 01:06:17 by udemirci         ###   ########.fr       */
+/*   Updated: 2025/08/20 05:32:48 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	run_command(t_cmds *cmd, t_env *env)
 	full_path = find_executable(cmd->command[0], env);
 	if (!full_path)
 	{
-		ft_printf("%s: command not found\n", cmd->command[0]);
+		ft_printf("minishell: %s: command not found\n", cmd->command[0]);
 		free_and_exit(cmd, env, 127);
 	}
 	execve(full_path, cmd->command, cmd->envp);

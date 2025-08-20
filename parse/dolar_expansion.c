@@ -6,7 +6,7 @@
 /*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:00 by udemirci          #+#    #+#             */
-/*   Updated: 2025/08/20 03:42:26 by udemirci         ###   ########.fr       */
+/*   Updated: 2025/08/20 06:12:17 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	expand_var(t_expand *expand_info, char *arg, t_env *env_list,
 	expand_info->i++;
 	if (arg[expand_info->i] == '?')
 	{
-		handle_exit_code(expand_info, cmd->exit_status);
+		handle_exit_code(expand_info, cmd->exit_status, arg);
 		return ;
 	}
 	get_var_name(expand_info, arg, &var_name);
