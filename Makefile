@@ -4,7 +4,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 
-LDFLAGS = -lreadline
 SRCS = 	builtin/builtin_cd.c \
         builtin/builtin_echo.c \
         builtin/builtin_env.c \
@@ -44,20 +43,19 @@ SRCS = 	builtin/builtin_cd.c \
         utils/ft_printf.c
 
 OBJS = $(SRCS:.c=.o)
+RM = rm -f
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)  
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
 
-%.o: %.c minishell.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean:
-	rm -f $(OBJS)
+clean: 
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
+
 .PHONY: all clean fclean re

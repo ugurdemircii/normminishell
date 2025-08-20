@@ -6,13 +6,13 @@
 /*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 00:31:27 by eakkoc            #+#    #+#             */
-/*   Updated: 2025/08/20 04:12:55 by udemirci         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:59:45 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	export_error(t_env **env, char **args, int *i)
+static int	add_export(t_env **env, char **args, int *i)
 {
 	char	*key;
 	char	*value;
@@ -90,7 +90,7 @@ int	builtin_export(t_env **env, char **args)
 			exit = 1;
 			continue ;
 		}
-		if (export_error(env, args, &i) == 1)
+		if (add_export(env, args, &i) == 1)
 			return (1);
 		i++;
 	}

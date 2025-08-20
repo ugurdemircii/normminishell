@@ -6,7 +6,7 @@
 /*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 00:31:24 by eakkoc            #+#    #+#             */
-/*   Updated: 2025/08/20 02:59:32 by udemirci         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:58:54 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-static int	check_overflow(long long result, int digit, int sign)
+static int	check_overflow(unsigned long long result, int digit, int sign)
 {
 	if (sign == 1)
 	{
-		if (result > (LLONG_MAX - digit) / 10)
+		if (result > (unsigned long long)(LLONG_MAX - digit) / 10)
 			return (1);
 	}
 	else
 	{
-		if (result > (LLONG_MAX - digit) / 10)
+		if (result > (unsigned long long)(LLONG_MAX - digit + 1) / 10)
 			return (1);
 	}
 	return (0);
@@ -63,9 +63,9 @@ static int	parse_sign(const char **str)
 
 static int	ft_atoll_hard(const char *str, long long *out)
 {
-	long long	result;
-	int			sign;
-	int			digit;
+	unsigned long long	result;
+	int					sign;
+	int					digit;
 
 	result = 0;
 	*out = 0;

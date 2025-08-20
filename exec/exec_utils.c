@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eakkoc <eakkoc@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 00:31:50 by eakkoc            #+#    #+#             */
-/*   Updated: 2025/08/20 00:31:51 by eakkoc           ###   ########.fr       */
+/*   Updated: 2025/08/20 13:34:45 by udemirci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*find_executable(char *cmd, t_env *env)
 	int		i;
 
 	path = find_in_env_list(env, "PATH");
-	if (!path || ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
+	if (!path)
+		return (NULL);
 	dirs = ft_split(path, ':');
 	i = -1;
 	while (dirs[++i])
