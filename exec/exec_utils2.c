@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eakkoc <eakkoc@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:31:53 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 00:31:54 by eakkoc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void close_unused_fds(int *prev_fd, t_cmds *cmd, int pipefd[2])
+void	close_unused_fds(int *prev_fd, t_cmds *cmd, int pipefd[2])
 {
 	if (*prev_fd != -1)
 		close(*prev_fd);
@@ -11,35 +23,36 @@ void close_unused_fds(int *prev_fd, t_cmds *cmd, int pipefd[2])
 	}
 }
 
-static int is_directory(const char *path) 
+static int	is_directory(const char *path)
 {
-	struct stat st;
+	struct stat	st;
+
 	if (stat(path, &st) == -1)
-		return 0;
-	return S_ISDIR(st.st_mode);
+		return (0);
+	return (S_ISDIR(st.st_mode));
 }
 
-void handle_command_access(t_cmds *cmd,t_env *env)
+void	handle_command_access(t_cmds *cmd, t_env *env)
 {
 	if (is_directory(cmd->command[0]))
 	{
-        ft_putstr_fd("minishell: ", 2);
-        ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->command[0], 2);
 		ft_putendl_fd(": Is a directory", 2);
-		free_and_exit(cmd,env,126);
+		free_and_exit(cmd, env, 126);
 	}
 	if (access(cmd->command[0], F_OK) != 0)
 	{
-        ft_putstr_fd("minishell: ", 2);
-        ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->command[0], 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		free_and_exit(cmd,env,127);
+		free_and_exit(cmd, env, 127);
 	}
 	if (access(cmd->command[0], X_OK) != 0)
 	{
-        ft_putstr_fd("minishell: ", 2);
-        ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd->command[0], 2);
 		ft_putendl_fd(": Permission denied", 2);
-		free_and_exit(cmd,env,126);
+		free_and_exit(cmd, env, 126);
 	}
 }

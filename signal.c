@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:28:09 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/20 00:27:32 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-volatile sig_atomic_t g_exit_status_shell = 0;
+volatile sig_atomic_t	g_exit_status_shell = 0;
 
 static void	sigint_handler(int sig)
 {
@@ -12,11 +24,12 @@ static void	sigint_handler(int sig)
 	g_exit_status_shell = 130;
 }
 
-static void	sigquit_handler(int sig)
+void	handle_exit(t_cmds *cmd, t_env *env, int exit_status)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
+	free_cmds_list(cmd);
+	free_env_list(env);
+	printf("exit\n");
+	exit(exit_status);
 }
 
 void	setup_signals(void)

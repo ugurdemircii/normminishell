@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:31:36 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 04:11:20 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_valid_varname(const char *name)
@@ -6,12 +18,12 @@ int	is_valid_varname(const char *name)
 
 	if (!name || !name[0])
 		return (0);
-	if (!(isalpha(name[0]) || name[0] == '_'))
+	if (!(ft_isalpha(name[0]) || name[0] == '_'))
 		return (0);
 	i = 1;
 	while (name[i])
 	{
-		if (!(isalnum(name[i]) || name[i] == '_'))
+		if (!(ft_isalnum(name[i]) || name[i] == '_'))
 			return (0);
 		i++;
 	}
@@ -40,10 +52,10 @@ char	*extract_varname(char *arg)
 	i = 0;
 	while (arg[i] && arg[i] != '=')
 		i++;
-	name = ft_calloc((i + 1),sizeof(char));
+	name = ft_calloc((i + 1), sizeof(char));
 	if (!name)
 		return (NULL);
-	strncpy(name, arg, i);
+	ft_strncpy(name, arg, i);
 	name[i] = '\0';
 	return (name);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:20:25 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/19 20:20:26 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_strlen(char *s)
@@ -18,7 +30,7 @@ char	*ft_strdup(char *s1)
 	int		i;
 
 	i = 0;
-	dest = ft_calloc(ft_strlen(s1) + 1,sizeof(char));
+	dest = ft_calloc(ft_strlen(s1) + 1, sizeof(char));
 	if (dest == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -42,7 +54,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if ((strlen - start) < len)
 		len = strlen - start;
-	str = ft_calloc(len + 1,sizeof(char));
+	str = ft_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s + start, len + 1);

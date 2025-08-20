@@ -1,24 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:18:46 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/20 03:31:08 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-
-
-
-
-
-
-
-
-static void init_env_list(t_env **env_list, char **envp)
+static int	parse_steps(char *input, t_cmds **cmd, t_env *env, int exit_status)
 {
-	int i;
-	char *equal_pos;
-	char *key;
-	char *value;
+	t_cmds	*head;
+
+	create_t_cmds_node(cmd, input);
+	head = *cmd;
+	token_arg(*cmd);
+	(*cmd)->redirect_list = NULL;
+	if (redirect_token_check(*cmd, input))
+	{
+		free_cmds_list(*cmd);
+		return (1);
+	}
+	while (*cmd)
+	{
+		redirect_and_command(*cmd);
+		*cmd = (*cmd)->next;
+	}
+	*cmd = head;
+	clean_command(*cmd);
+	(*cmd)->exit_status = exit_status;
+	expand_cmd(*cmd, env);
+	clear_quotes_of_cmd(*cmd);
+	return (0);
+}
+
+static void	init_env_list(t_env **env_list, char **envp)
+{
+	int		i;
+	char	*equal_pos;
+	char	*key;
+	char	*value;
 
 	i = 0;
+	*env_list = NULL;
 	while (envp[i])
 	{
-		equal_pos = strchr(envp[i], '=');
+		equal_pos = ft_strchr(envp[i], '=');
 		if (equal_pos)
 		{
 			key = ft_substr(envp[i], 0, equal_pos - envp[i]);
@@ -31,25 +62,11 @@ static void init_env_list(t_env **env_list, char **envp)
 	}
 }
 
-
-
-
-
-
-static void	handle_exit(t_cmds *cmd, t_env *env, int exit_status)
-{
-	free_cmds_list(cmd);
-	free_env_list(env);
-	printf("exit\n");
-	exit(exit_status);
-}
-
-
 static char	*set_input_and_history(char *input, int *exit_status)
 {
 	char	*trimmed;
-	int i;
-	int len;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = ft_strlen(input);
@@ -59,7 +76,7 @@ static char	*set_input_and_history(char *input, int *exit_status)
 	{
 		input[0] = '\0';
 		return (input);
-	}		
+	}
 	if (g_exit_status_shell == 130)
 	{
 		g_exit_status_shell = 0;
@@ -72,11 +89,8 @@ static char	*set_input_and_history(char *input, int *exit_status)
 	return (trimmed);
 }
 
-
-static int before_exec(char *input,t_cmds **cmd,t_env *env, int *exit_status)
+static int	before_exec(char *input, t_cmds **cmd, t_env *env, int *exit_status)
 {
-	int exit;
-
 	if (!check_syntax(input))
 	{
 		free(input);
@@ -95,10 +109,8 @@ static int before_exec(char *input,t_cmds **cmd,t_env *env, int *exit_status)
 		free_cmds_list(*cmd);
 		return (1);
 	}
-	return (0);		
-
+	return (0);
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -107,7 +119,8 @@ int	main(int argc, char **argv, char **envp)
 	t_cmds		*cmd;
 	static int	exit_status = 0;
 
-	env = NULL;
+	(void)argc;
+	(void)argv;
 	init_env_list(&env, envp);
 	setup_signals();
 	while (1)
@@ -118,9 +131,9 @@ int	main(int argc, char **argv, char **envp)
 			handle_exit(cmd, env, exit_status);
 		input = set_input_and_history(input, &exit_status);
 		if (input[0] == '\0')
-			continue;
-		if (before_exec(input,&cmd,env,&exit_status))
-			continue;
+			continue ;
+		if (before_exec(input, &cmd, env, &exit_status))
+			continue ;
 		execute_command(cmd, env);
 		exit_status = cmd->exit_status;
 		free_cmds_list(cmd);

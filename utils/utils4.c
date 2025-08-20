@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils4.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:20:41 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/20 00:05:42 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int count_len_double_ptr(char **args)
+int	count_double_ptr(char **args)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (args[i])
 		i++;
@@ -33,12 +45,13 @@ void	ft_putstr_fd(char *s, int fd)
 		s++;
 	}
 }
-void ft_putendl_fd(char *s,int fd)
+
+void	ft_putendl_fd(char *s, int fd)
 {
 	if (!s)
 		return ;
-	ft_putstr_fd(s,fd);
-	write(fd,"\n",1);
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }
 
 char	*ft_strtrim(char *s1, char *set)

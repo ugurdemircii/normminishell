@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:31:27 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 04:12:55 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-static int export_error(t_env **env, char **args,int *i)
+static int	export_error(t_env **env, char **args, int *i)
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	key = extract_varname(args[*i]);
 	if (!key || !is_valid_varname(key))
 	{
-        ft_putstr_fd("export: `",2);
-        ft_putendl_fd(args[*i], 2);
-        ft_putendl_fd("': not a valid identifier", 2);
+		ft_putstr_fd("export: `", 2);
+		ft_putendl_fd(args[*i], 2);
+		ft_putendl_fd("': not a valid identifier", 2);
 		free(key);
 		return (1);
 	}
@@ -26,6 +38,7 @@ static int export_error(t_env **env, char **args,int *i)
 	free(value);
 	return (0);
 }
+
 static void	print_exported_vars(t_env *env)
 {
 	t_env	**array;
@@ -39,43 +52,41 @@ static void	print_exported_vars(t_env *env)
 	while (array[i])
 	{
 		if (array[i]->value)
-			printf("declare -x %s=\"%s\"\n",
-				array[i]->key, array[i]->value);
+			printf("declare -x %s=\"%s\"\n", array[i]->key, array[i]->value);
 		else
 			printf("declare -x %s\n", array[i]->key);
 		i++;
 	}
 	free(array);
 }
-static int export_only(char **args,t_env *env)
+
+static int	export_only(char **args, t_env *env)
 {
-    if (!args || !args[1])
+	if (!args || !args[1])
 	{
 		print_exported_vars(env);
 		return (1);
 	}
-    return (0);
+	return (0);
 }
 
 int	builtin_export(t_env **env, char **args)
 {
 	int		i;
-	char	*key;
-	char	*value;
-	int exit;
+	int		exit;
 
 	exit = 0;
 	i = 1;
-    if (export_only(args, *env) == 1)
-        return (0);
+	if (export_only(args, *env) == 1)
+		return (0);
 	while (args[i])
 	{
 		if (!args[i][0])
 		{
-            ft_putstr_fd("export: `",2);
-            ft_putstr_fd(args[i],2);
-            ft_putendl_fd("': not a valid identifier", 2);
-            i++;
+			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd(args[i], 2);
+			ft_putendl_fd("': not a valid identifier", 2);
+			i++;
 			exit = 1;
 			continue ;
 		}

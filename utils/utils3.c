@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:20:36 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/19 20:20:37 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static size_t	count_len(int n)
@@ -24,9 +36,10 @@ static size_t	count_len(int n)
 	}
 	return (i);
 }
-int last_pipe(char *input)
+
+int	last_pipe(char *input)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(input);
 	if (input[len - 1] == '|')

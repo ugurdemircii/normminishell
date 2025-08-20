@@ -1,5 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_utils2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eakkoc <eakkoc@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:31:42 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 00:31:43 by eakkoc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../minishell.h"
 
 int	env_len(t_env *env)
 {
@@ -14,48 +25,54 @@ int	env_len(t_env *env)
 	return (count);
 }
 
-static int update_var(t_env *env, char *key, char *value)
+static int	update_var(t_env *env, char *key, char *value)
 {
-    t_env *curr = env;
-    
-    while (curr)
-    {
-        if (ft_strcmp(curr->key, key) == 0)
-        {
-            free(curr->value);
-            if (value)
-                curr->value = ft_strdup(value);
-            else
-                curr->value = NULL;
-            return 1;
-        }
-        curr = curr->next;
-    }
-    return 0;
+	t_env	*curr;
+
+	curr = env;
+	while (curr)
+	{
+		if (ft_strcmp(curr->key, key) == 0)
+		{
+			free(curr->value);
+			if (value)
+				curr->value = ft_strdup(value);
+			else
+				curr->value = NULL;
+			return (1);
+		}
+		curr = curr->next;
+	}
+	return (0);
 }
-static int create_and_add_node(t_env **env, char *key, char *value)
+
+static int	create_and_add_node(t_env **env, char *key, char *value)
 {
-    t_env *new_node;
+	t_env	*new_node;
+
 	new_node = ft_calloc(1, sizeof(t_env));
-    if (!new_node)
-        return -1;
-    new_node->key = ft_strdup(key);
-    if (value)
-        new_node->value = ft_strdup(value);
-    else
-        new_node->value = NULL;
-    new_node->next = NULL;
-    add_env_node(env, new_node);
-    return 0;
+	if (!new_node)
+		return (-1);
+	new_node->key = ft_strdup(key);
+	if (value)
+		new_node->value = ft_strdup(value);
+	else
+		new_node->value = NULL;
+	new_node->next = NULL;
+	add_env_node(env, new_node);
+	return (0);
 }
 
-int set_env_var(t_env **env, char *key, char *value)
+int	set_env_var(t_env **env, char *key, char *value)
 {
-    if (!env || !key)
-        return -1;
+	if (!env || !key)
+		return (-1);
+	if (update_var(*env, key, value))
+		return (0);
+	return (create_and_add_node(env, key, value));
+}
 
-    if (update_var(*env, key, value))
-        return 0;
-
-    return create_and_add_node(env, key, value);
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
 }

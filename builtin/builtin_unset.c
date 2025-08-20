@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eakkoc <eakkoc@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:31:33 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 00:31:34 by eakkoc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static int	unset_env_var(t_env **env, const char *key)
 {
-	t_env *curr;
-	t_env *prev;
+	t_env	*curr;
+	t_env	*prev;
 
 	curr = *env;
 	prev = NULL;
@@ -25,7 +37,6 @@ static int	unset_env_var(t_env **env, const char *key)
 	}
 	return (0);
 }
-
 
 int	builtin_unset(t_env **env, char **args)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 00:30:50 by eakkoc            #+#    #+#             */
+/*   Updated: 2025/08/20 01:03:54 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	n_option(char *arg)
@@ -16,7 +28,7 @@ int	n_option(char *arg)
 	return (1);
 }
 
-int	builtin_echo(char **args, int exit_after)
+int	builtin_echo(char **args)
 {
 	int	i;
 	int	newline;
@@ -28,7 +40,6 @@ int	builtin_echo(char **args, int exit_after)
 		newline = 1;
 		i++;
 	}
-
 	while (args[i])
 	{
 		printf("%s", args[i]);
@@ -36,7 +47,6 @@ int	builtin_echo(char **args, int exit_after)
 			printf(" ");
 		i++;
 	}
-
 	if (!newline)
 		printf("\n");
 	return (0);

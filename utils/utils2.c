@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: udemirci <udemirci@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 20:20:31 by udemirci          #+#    #+#             */
+/*   Updated: 2025/08/19 20:20:32 by udemirci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*ft_strjoin(char *s1, char *s2, char sep)
@@ -12,7 +24,7 @@ char	*ft_strjoin(char *s1, char *s2, char sep)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	result = ft_calloc(len1 + len2 + 2,sizeof(char));
+	result = ft_calloc(len1 + len2 + 2, sizeof(char));
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -38,6 +50,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
 int	ft_isalnum(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))

@@ -1,7 +1,7 @@
 NAME = minishell
 
-CC = gcc 
-CFLAGS = -g
+CC = cc  
+CFLAGS = -Wall -Wextra -Werror
 
 
 LDFLAGS = -lreadline
@@ -48,7 +48,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) ./minishell.h $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)  
 
 %.o: %.c minishell.h
 	$(CC) $(CFLAGS) -c $< -o $@
